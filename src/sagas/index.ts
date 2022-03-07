@@ -11,8 +11,8 @@ import { POST_REPORT_REQUEST } from 'store/actionTypes'
 
 export function* handleFetchGateways() {
   try {
-    const data: AxiosResponse = yield call(getGateways)
-    yield put(setGatewaysAction(data.data))
+    const data: AxiosResponse<Gateway_Response> = yield call(getGateways)
+    yield put(setGatewaysAction(data.data.data))
   }
   catch(error){
     yield put(failGetGatewayAction(error))
@@ -20,8 +20,8 @@ export function* handleFetchGateways() {
 }
 export function* handleFetchUsers() {
   try {
-    const data: AxiosResponse = yield call(getUsers)
-    yield put(setUsersAction(data.data))
+    const data: AxiosResponse<User_Response> = yield call(getUsers)
+    yield put(setUsersAction(data.data.data))
   }
   catch(error){
     yield put(failgetUsersAction(error))
@@ -29,8 +29,8 @@ export function* handleFetchUsers() {
 }
 export function* handleFetchProjects() {
   try {
-    const data: AxiosResponse = yield call(getProjects)
-    yield put(setProjectsAction(data.data))
+    const data: AxiosResponse<Project_Response> = yield call(getProjects)
+    yield put(setProjectsAction(data.data.data))
   }
   catch(error){
     yield put(failGetProjectAction(error))

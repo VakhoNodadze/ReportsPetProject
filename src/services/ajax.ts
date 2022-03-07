@@ -3,7 +3,6 @@ import axios, { AxiosError } from 'axios'
 const ajax = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   timeout: 10000,
-  withCredentials: true,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
