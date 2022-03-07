@@ -73,8 +73,10 @@ export type FAIL_REPORT_ACTION = {
 }
 
 
-export type STATE = { users: any, usersError: any, loadingUsers: boolean } & { gateways: any, gatewaysError: any, loadingGateways: boolean} 
-& { projects: any, projectsError: any, loadingProject: boolean } & { report: any, reportsError: any, loadingReports: boolean } 
+export type STATE = { users: User[] | null, usersError: any, loadingUsers: boolean } 
+& { gateways: Gateway[] | null, gatewaysError: any, loadingGateways: boolean} 
+& { projects: Project[] | null, projectsError: any, loadingProject: boolean } 
+& { report: any, reportsError: any, loadingReports: boolean } 
 
 
 export type ACTION_TYPE = FETCH_USERS_ACTION | SET_USERS_ACTION | FAIL_USERS_FETCH_ACTION 

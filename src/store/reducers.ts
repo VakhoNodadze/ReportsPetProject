@@ -45,7 +45,7 @@ const reducer = (state = initialState, action: ACTION_TYPE) => {
     return { ...state, loadingGateways: true }
   case SET_GATEWAYS:
     return { ...state, loadingGateways: false, gateways: action.gateways }
-  case FAIL_USERS:
+  case FAIL_GATEWAYS:
     return { ...state, loadingGateways: false, gatewaysError: action.error }
   case FETCH_PROJECTS_REQUEST:
     return { ...state, loadingProject: true }
