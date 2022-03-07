@@ -144,6 +144,7 @@ module.exports = {
         '500px': '500px',
         '600px': '600px',
         '100vh-6rem': 'calc(100vh - 6rem)',
+        '100vh-168px': 'calc(100vh - 168px)',
         '100%-50px': 'calc(100% - 50px)',
         '100%-84px': 'calc(100% - 84px)',
         '100vh-80px': 'calc(100vh - 80px',

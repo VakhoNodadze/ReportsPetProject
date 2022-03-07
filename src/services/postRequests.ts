@@ -1,3 +1,3 @@
 import ajax from './ajax'
 
-export const getProjects = () => ajax.post('/report')
+export const postReport = () => ajax.post('/report')
