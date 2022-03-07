@@ -1,41 +1,59 @@
-import { put, call, takeLatest } from 'redux-saga/effects'
+import { put, call, takeLatest, all } from 'redux-saga/effects'
 import { AxiosResponse } from 'axios'
-import { getGateways, getProjects, getUsers, postReport } from 'services'
+
+import { getGateways, getUsers, getProjects, postReport } from 'services'
+import { setGatewaysAction, failGetGatewayAction, 
+  setUsersAction, failgetUsersAction, 
+  setReportAction, failGetProjectAction,
+  setProjectsAction, failPostReportAction } 
+  from 'store/actions'
+import { POST_REPORT_REQUEST } from 'store/actionTypes'
 
 export function* handleFetchGateways() {
   try {
     const data: AxiosResponse = yield call(getGateways)
-    yield put(setSeasonsAction(data.data))
+    yield put(setGatewaysAction(data.data))
   }
   catch(error){
-    yield put(setSeasonsFailAction(error))
+    yield put(failGetGatewayAction(error))
+  }
+}
+export function* handleFetchUsers() {
+  try {
+    const data: AxiosResponse = yield call(getUsers)
+    yield put(setUsersAction(data.data))
+  }
+  catch(error){
+    yield put(failgetUsersAction(error))
+  }
+}
+export function* handleFetchProjects() {
+  try {
+    const data: AxiosResponse = yield call(getProjects)
+    yield put(setProjectsAction(data.data))
+  }
+  catch(error){
+    yield put(failGetProjectAction(error))
+  }
+}
+export function* handlePostReport() {
+  try {
+    yield call(postReport)
+    yield put(setReportAction())
+  }
+  catch(error){
+    yield put(failPostReportAction(error))
   }
 }
 
-export function* handleFetchBusinessTypes() {
-  try {
-    const data: AxiosResponse<SEASONTYPE[]> = yield call(getBusinessTypesService)
-    yield put(setBusinessTypesAction(data.data))
-  }
-  catch(error){
-    yield put(failBusinessTypesAction(error))
-  }
-}
-export function* handleFetchBusinessCategories() {
-  try {
-    const data: AxiosResponse<SEASONTYPE[]> = yield call(getBusinessCategoriesService)
-    yield put(setBusinessCategoriesAction(data.data))
-  }
-  catch(error){
-    yield put(failBusinessCategoriesAction(error))
-  }
-}
 function* watcherSaga() {
-  yield takeLatest(GET_SEASONS, handleFetchSeasons)
-  yield takeLatest(GET_BUSINESS_TYPES_REQUEST, handleFetchBusinessTypes)
-  yield takeLatest(GET_BUSINESS_CATEGORIES_REQUEST, handleFetchBusinessCategories)
+  yield call(handleFetchGateways)
+  yield call(handleFetchUsers)
+  yield call(handleFetchProjects)
+  yield takeLatest(POST_REPORT_REQUEST, handlePostReport)
 }
 
-const dictioneriesSaga = [watcherSaga()]
-export default dictioneriesSaga
-export {}
+const sagas = [watcherSaga()]
+export default function* rootSaga() {
+  yield all([...sagas])
+}
